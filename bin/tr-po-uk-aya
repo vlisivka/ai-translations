@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for I in "$@"
+do
+  echo "$I"
+  aichat -r tr-po-uk-aya <"$I" | tee -p "${I%.*}.uk.${I##*.}"
+done

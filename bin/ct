@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for I in "$@"
+do
+  echo "$I"
+  aichat -r pocheck <"$I" | tee -p "${I%.*}.check.${I##*.}"
+  diff -rub "$I" "${I%.*}.check.${I##*.}" | tee -p "${I%.*}.check.${I##*.}.diff"
+done

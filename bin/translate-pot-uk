@@ -1,0 +1,50 @@
+#!/bin/bash
+. import.sh strict log arguments
+
+# Extract untranslated messages from .po file
+extract_untranslated_messages() {
+  local ORIGINAL_FILE="$1"
+  local UNTRANSLATED_MESSAGES_FILE="$2"
+  info "Extracting untranslated messages from \"$ORIGINAL_FILE\" into =\"$UNTRANSLATED_MESSAGES_FILE\"."
+  msgattrib --untranslated "$ORIGINAL_FILE" -o "$UNTRANSLATED_MESSAGES_FILE" \
+    || panic "Cannot extract untranslated messages from \"$ORIGINAL_FILE\" into \"$UNTRANSLATED_MESSAGES_FILE\"."
+}
+
+# Split file into chunks
+split_into_chunks() {
+}
+
+# Translate file chunk by chunk
+translate_chunks() {
+}
+
+# Validate chunks and skip broken ones
+validate_chunks() {
+}
+
+# Concatenate chunks into .po file
+concatenate_chunks() {
+}
+
+# Compare translated file with original file and filter out messages with corrupted msgid.
+filter_out_corrupted_msgid() {
+}
+
+# Cleanup temporary files
+cleanup() {
+  local TMP="$1"
+  rm -rf "$TMP"
+}
+
+main() {
+  local TMP="$(mktemp -d translate-pot-uk.XXXXX)"
+  info "Temporary directory: \"$TMP\"."
+
+  local FILE=""
+  for FILE in "$@"
+  do
+    extract_untranslated_messages "$I"
+  done
+}
+
+main "$@"

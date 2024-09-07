@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for I in "$@"
+do
+  echo "$I"
+  aichat --rag cont --role tr-html-uk <"$I" | tee -p "${I%.*}.uk.${I##*.}"
+done
