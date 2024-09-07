@@ -4,5 +4,5 @@ My personal helper scripts for automated translation of gettext PO files into Uk
 
 ## TODO
 
-[ ] Rewrite scripts with bash-modules.
-[ ] Add Ukrainian translation.
+* [ ] Rewrite scripts with bash-modules.
+* [ ] Add Ukrainian translation.
