@@ -1,5 +1,6 @@
 - name: code
-  model: "ollama:codestral:latest"
+  model: "ollama:yi-coder:latest"
+#  model: "ollama:codestral:latest"
   prompt: |-
     Provide only code without comments or explanations.
     ### INPUT:
@@ -98,13 +99,36 @@
   #model: "ollama:llama3.1:8b-instruct-fp16"
   #model: "ollama:codestral:latest"
   prompt: |-
-    Help me to translate a book about Continuous Product Development (business topic). Act as technical translator.
-    Translate HTML from any language into Ukrainian language.
-    Translate intent. Don't print explanations or comments. Print just translated text in HTML only. Переклади весь файл від початку і до кінця.
-    Result must be valid HTML in Ukrainian language. Keep original HTML tags.
+    Act as a professional software developer and technical translator. Help me to translate a book about Continuous Product Development (business topic).
+    Translate HTML fragment from English language into Ukrainian language.
+    Translate intent. Don't print explanations or comments. Print just translated text and correct HTML tags.
+    Result must be valid HTML with text in Ukrainian language. Copy original HTML tags and attributes as is.
     Translate "outcome" as "наслідок" instad of "результат".
-    Translate "output" as "результат".
-    Author of book is woman.
+    Translate "output" as "випуск". Translate "result" as "результат".
+    Author of book is woman. Book name: "Звички безперервного відкриття".
+    Follow instructions in <instruction></instruction> tag.
+    ### INPUT:
+    <p class="noindentb"><span class="drop">S</span>onja Martin, a product manager at tails.com—a Direct to Consumer business offering tailor-made dog food via a subscription service—and her team were tasked with improving a core business outcome, customer retention. While tails.com had many happy subscribers, they found that customer retention during the first 90 days of service was a critical indicator of long-term retention. Sonja’s team set out to improve retention measured at the 90-day mark. However, they quickly ran into challenges.</p>
+    ### OUTPUT:
+    <p class="noindentb"><span class="drop">С</span>оня Мартін, менеджер з продуктів у tails.com — бізнесі прямих продажів клієнтам, який пропонує індивідуальне харчування для собак за підпискою — і її команда отримали завдання покращити ключовий показник бізнесу, утримання клієнтів. Хоча у tails.com було багато задоволених підписників, вони виявили, що показник утримання клієнтів протягом перших 90 днів обслуговування є критичним індикатором довгострокового утримання. Команда Соні вирушила покращувати показники утримання на позначці 90 днів. Однак вони швидко зіткнулися з проблемами.</p>
+
+- name: tr-wiki-uk
+  temperature: 0.2
+  #model: "ollama:aya:35b"
+  #model: "ollama:mistral-nemo:latest"
+  #model: "ollama:gemma2:27b"
+  model: "ollama:gemma2:27b-instruct-q5_0"
+  #model: "ollama:gemma2:27b-instruct-q6_K"
+  #model: "ollama:codestral:22b-v0.1-q5_0"
+  #model: "ollama:codestral:22b-v0.1-q6_K"
+  #model: "ollama:codestral:22b-v0.1-q8_0"
+  #model: "ollama:llama3.1:8b-instruct-fp16"
+  #model: "ollama:codestral:latest"
+  prompt: |-
+    Act as a professional software developer and technical translator. Help me to translate a Wikipedia page into Ukrainian language.
+    Translate Wikipedia fragment in <document></document> tag from English language into Ukrainian language.
+    Translate intent. Don't print explanations or comments. Print just translated text with correct Wikipedia tags using correct syntax for uk.wikipedia.org.
+    Follow instructions in <instruction></instruction> tag.
 
 - name: inspect_nemo
   temperature: 0.2
@@ -210,3 +234,39 @@
     <comments>comments</comments>
     <needs-answers>request for additional information, if necessary</need-answers>
 
+
+- name: accents
+  temperature: 0.1
+  #model: "ollama:gemma2:27b"
+  model: "ollama:gemma2:27b-instruct-q5_0"
+  #model: "ollama:codestral:22b-v0.1-q5_0"
+  #model: "ollama:codestral:22b-v0.1-q6_K"
+  #model: "ollama:codestral:22b-v0.1-q8_0"
+  #model: "ollama:llama3.1:8b-instruct-fp16"
+  #model: "ollama:codestral:latest"
+  prompt: |-
+    Act as a song writer for songs and poems in Ukrainian language. Split text into 4 lines long verses.
+    For each word, mark accent letters according to rules of poem writting.
+    Try to match accents between lines of a verse. Respond in Ukrainian language.
+    Repeat instruction first, then start to repeat song with accents broken into verses.
+
+- name: problem
+  temperature: 0.5
+  #model: "ollama:jean-luc/big-tiger-gemma:27b-v1c-Q4_K_M"
+  #model: "ollama:gemma2:27b"
+  model: "ollama:gemma2:27b-instruct-q5_0"
+  #model: "ollama:codestral:22b-v0.1-q5_0"
+  #model: "ollama:codestral:22b-v0.1-q6_K"
+  #model: "ollama:codestral:22b-v0.1-q8_0"
+  #model: "ollama:llama3.1:8b-instruct-fp16"
+  #model: "ollama:codestral:latest"
+  prompt: |-
+    Write many chains of thought for how you’d approach solving the user's question. In this scenario, more is more. You need to type out as many thoughts as possible, placing all your thoughts inside <thinking> tags. 
+    Your thoughts are only visible to yourself, the user does not see them and they should not be considered to be part of the final response.
+    Consider every possible angle, recheck your work at every step, and backtrack if needed.
+    Remember, there are no limits in terms of how long you can think - more thinking will always lead to a better solution.
+    You should use your thoughts as a scratchpad, much like humans do when performing complicated math with paper and pen. Don't omit any calculation, write everything out explicitly.
+    When counting or maths is involved, write down an enormously verbose scratchpad containing the full calculation, count, or proof, making sure to LABEL every step of the calculation, and writing down the solution step by step.
+    Always remember that if you find yourself consistently getting stuck, taking a step back and reconsidering your approach is a good idea. If multiple solutions are plausible, explore each one individually, and provide multiple answers.
+    Always provide mathematical proofs of mathematical answers. Be as formal as possible and use LaTeX.
+    Don't be afraid to give obvious answers. At the very very end, after pages upon pages of deep thoughts, synthesize the final answer, inside <answer> tags.
